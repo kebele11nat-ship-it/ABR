@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,29 +10,41 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' }
+          }
+        }
+      }
+    }
+  </script>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans min-h-screen py-8 px-4">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen py-8 px-4 selection:bg-blue-600 selection:text-white">
 
   <div class="max-w-xl mx-auto space-y-6">
     
-    <!-- APPLICATION CARD -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+    <!-- MAIN APPLICATION CARD -->
+    <div class="bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-6 backdrop-blur-md">
       <div class="text-center mb-6">
-        <h1 class="text-2xl font-bold text-slate-900 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-scale-balanced text-blue-600"></i> Resource Analyst - Haw
+        <h1 class="text-2xl font-bold text-white flex items-center justify-center gap-2 tracking-tight">
+          <i class="fa-solid fa-scale-balanced text-blue-500"></i> Resource Analyst - Haw
         </h1>
-        <span class="inline-block mt-1 text-xs font-semibold tracking-wider text-blue-600 uppercase bg-blue-50 px-2.5 py-1 rounded-full">
-          Lean Waste & Efficiency Engine
+        <span class="inline-block mt-2 text-xs font-bold tracking-wider text-blue-400 uppercase bg-blue-950/80 border border-blue-800/60 px-3 py-1 rounded-full">
+          Lean Waste & Operational Engine
         </span>
       </div>
 
-      <form id="resourceForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+      <form id="resourceForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
         <!-- Shift Selection -->
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">
-            <i class="fa-regular fa-clock"></i> Shift Schedule
+          <label for="shift" class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+            <i class="fa-regular fa-clock text-blue-400 mr-1"></i> Shift Schedule
           </label>
-          <select id="shift" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          <select id="shift" class="w-full bg-slate-800 border border-slate-700 text-slate-100 text-sm rounded-xl p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition">
             <option value="Shift 1 (Day)">Shift 1 (Day)</option>
             <option value="Shift 2 (Evening)">Shift 2 (Evening)</option>
             <option value="Shift 3 (Night)">Shift 3 (Night)</option>
@@ -40,153 +52,153 @@
         </div>
 
         <!-- Outside Tasks -->
-        <div class="pt-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1 mb-2">
-            <i class="fa-solid fa-truck-ramp-box"></i> Outside Tasks (Max 4 Units)
+        <div class="pt-2 border-t border-slate-800">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 mb-3">
+            <i class="fa-solid fa-truck-ramp-box text-blue-400"></i> Outside Tasks (Max 4 Units)
           </span>
           <div class="grid grid-cols-2 gap-3 mb-3">
             <div>
-              <label class="block text-xs text-slate-500 mb-1">Std Bays (Max 3)</label>
-              <input type="number" id="stdTrucks" min="0" max="3" value="1" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <label for="stdTrucks" class="block text-xs text-slate-400 mb-1">Std Bays (Max 3)</label>
+              <input type="number" id="stdTrucks" min="0" max="3" value="1" class="w-full bg-slate-800 border border-slate-700 text-slate-100 text-sm rounded-xl p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
             </div>
             <div>
-              <label class="block text-xs text-slate-500 mb-1">Draught Bay (Max 1)</label>
-              <input type="number" id="draughtTrucks" min="0" max="1" value="0" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+              <label for="draughtTrucks" class="block text-xs text-slate-400 mb-1">Draught Bay (Max 1)</label>
+              <input type="number" id="draughtTrucks" min="0" max="1" value="0" class="w-full bg-slate-800 border border-slate-700 text-slate-100 text-sm rounded-xl p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
             </div>
           </div>
           
           <div class="grid grid-cols-2 gap-2">
-            <label class="flex items-center gap-2 p-2.5 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer text-xs font-medium hover:bg-slate-100">
-              <input type="checkbox" id="feedEmpty" checked class="w-4 h-4 text-blue-600 rounded">
+            <label class="flex items-center gap-2.5 p-3 bg-slate-800/60 border border-slate-700/80 rounded-xl cursor-pointer text-xs font-medium hover:bg-slate-800 transition">
+              <input type="checkbox" id="feedEmpty" checked class="w-4 h-4 accent-blue-600 rounded">
               <span>Feed Empty (1 Fork)</span>
             </label>
-            <label class="flex items-center gap-2 p-2.5 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer text-xs font-medium hover:bg-slate-100">
-              <input type="checkbox" id="bgi2" class="w-4 h-4 text-blue-600 rounded">
+            <label class="flex items-center gap-2.5 p-3 bg-slate-800/60 border border-slate-700/80 rounded-xl cursor-pointer text-xs font-medium hover:bg-slate-800 transition">
+              <input type="checkbox" id="bgi2" class="w-4 h-4 accent-blue-600 rounded">
               <span>BGI 2 Task (1 Fork)</span>
             </label>
           </div>
         </div>
 
         <!-- Inside Production Tasks -->
-        <div class="pt-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1 mb-2">
-            <i class="fa-solid fa-warehouse"></i> Inside Production Lines (Max 5 Units)
+        <div class="pt-2 border-t border-slate-800">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5 mb-3">
+            <i class="fa-solid fa-warehouse text-blue-400"></i> Inside Production Lines (Max 5 Units)
           </span>
           <div class="grid grid-cols-2 gap-2 mb-3">
-            <label class="flex items-center gap-2 p-2.5 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer text-xs font-medium hover:bg-slate-100">
-              <input type="checkbox" name="inside" value="Production L1" checked class="w-4 h-4 text-blue-600 rounded">
+            <label class="flex items-center gap-2.5 p-3 bg-slate-800/60 border border-slate-700/80 rounded-xl cursor-pointer text-xs font-medium hover:bg-slate-800 transition">
+              <input type="checkbox" name="inside" value="Production L1" checked class="w-4 h-4 accent-blue-600 rounded">
               <span>Production L1</span>
             </label>
-            <label class="flex items-center gap-2 p-2.5 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer text-xs font-medium hover:bg-slate-100">
-              <input type="checkbox" name="inside" value="Production L2" checked class="w-4 h-4 text-blue-600 rounded">
+            <label class="flex items-center gap-2.5 p-3 bg-slate-800/60 border border-slate-700/80 rounded-xl cursor-pointer text-xs font-medium hover:bg-slate-800 transition">
+              <input type="checkbox" name="inside" value="Production L2" checked class="w-4 h-4 accent-blue-600 rounded">
               <span>Production L2</span>
             </label>
-            <label class="flex items-center gap-2 p-2.5 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer text-xs font-medium hover:bg-slate-100">
-              <input type="checkbox" name="inside" value="Keg Line" class="w-4 h-4 text-blue-600 rounded">
+            <label class="flex items-center gap-2.5 p-3 bg-slate-800/60 border border-slate-700/80 rounded-xl cursor-pointer text-xs font-medium hover:bg-slate-800 transition">
+              <input type="checkbox" name="inside" value="Keg Line" class="w-4 h-4 accent-blue-600 rounded">
               <span>Keg Line</span>
             </label>
-            <label class="flex items-center gap-2 p-2.5 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer text-xs font-medium hover:bg-slate-100">
-              <input type="checkbox" name="inside" value="Raw Materials" checked class="w-4 h-4 text-blue-600 rounded">
+            <label class="flex items-center gap-2.5 p-3 bg-slate-800/60 border border-slate-700/80 rounded-xl cursor-pointer text-xs font-medium hover:bg-slate-800 transition">
+              <input type="checkbox" name="inside" value="Raw Materials" checked class="w-4 h-4 accent-blue-600 rounded">
               <span>Raw Materials (RM)</span>
             </label>
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-slate-600 mb-1">
-              <i class="fa-solid fa-people-carry-box"></i> Inside Loaders Quantity (Manual Entry)
+            <label for="insideLoaders" class="block text-xs font-semibold text-slate-300 mb-1.5">
+              <i class="fa-solid fa-people-carry-box text-blue-400 mr-1"></i> Inside Loaders Quantity (Manual Entry)
             </label>
-            <input type="number" id="insideLoaders" min="0" max="5" value="2" class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-sm rounded-lg p-2.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+            <input type="number" id="insideLoaders" min="0" max="5" value="2" class="w-full bg-slate-800 border border-slate-700 text-slate-100 text-sm rounded-xl p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none transition">
           </div>
         </div>
 
-        <button type="submit" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl shadow-sm transition duration-150 flex items-center justify-center gap-2">
+        <button type="submit" id="submitBtn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-blue-600/20 active:scale-[0.99] transition duration-150 flex items-center justify-center gap-2">
           <i class="fa-solid fa-magnifying-glass-chart"></i> Analyze Capacity & Waste
         </button>
       </form>
 
       <!-- RESULTS DISPLAY -->
-      <div id="results" class="hidden mt-6 p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-3">
-        <div class="flex justify-between text-xs text-slate-600">
+      <div id="results" class="hidden mt-6 p-5 rounded-xl border border-slate-800 bg-slate-950 space-y-3.5">
+        <div class="flex justify-between text-xs text-slate-400">
           <span>Outside Forks Allocated:</span>
-          <span class="font-bold text-slate-900"><span id="outResult">0</span> / 4</span>
+          <span class="font-bold text-slate-100"><span id="outResult">0</span> / 4</span>
         </div>
-        <div class="flex justify-between text-xs text-slate-600">
+        <div class="flex justify-between text-xs text-slate-400">
           <span>Inside Line Forks Allocated:</span>
-          <span class="font-bold text-slate-900"><span id="inResult">0</span> / 5</span>
+          <span class="font-bold text-slate-100"><span id="inResult">0</span> / 5</span>
         </div>
-        <div class="flex justify-between text-xs text-slate-600">
+        <div class="flex justify-between text-xs text-slate-400">
           <span>Inside Loaders Quantity (Summed):</span>
-          <span class="font-bold text-slate-900" id="loaderResult">0</span>
+          <span class="font-bold text-slate-100" id="loaderResult">0</span>
         </div>
-        <div class="flex justify-between text-sm pt-2 border-t border-slate-200 font-semibold text-slate-800">
+        <div class="flex justify-between text-sm pt-3 border-t border-slate-800 font-semibold text-slate-200">
           <span>Total Fleet Operators Required:</span>
-          <span id="totalResult" class="text-blue-600 font-bold text-base">0</span>
+          <span id="totalResult" class="text-blue-400 font-bold text-base">0</span>
         </div>
         <div class="flex justify-between text-xs pt-1 font-semibold">
-          <span>Operational Status:</span>
-          <span id="statusResult" class="text-amber-600">OPTIMAL</span>
+          <span class="text-slate-400">Operational Status:</span>
+          <span id="statusResult" class="text-amber-400 uppercase tracking-wide">OPTIMAL</span>
         </div>
 
-        <div class="pt-2">
-          <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Capacity Assessment</p>
-          <div id="assessmentResult" class="text-xs text-slate-700 leading-relaxed"></div>
-        </div>
-
-        <div>
-          <p class="text-[10px] font-bold uppercase tracking-wider text-rose-500 mb-1">Lean Waste & Bottlenecks</p>
-          <div id="wasteResult" class="p-2.5 bg-rose-50 border-l-4 border-rose-500 text-xs text-rose-900 rounded-r"></div>
+        <div class="pt-2 border-t border-slate-900">
+          <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">Capacity Assessment</p>
+          <div id="assessmentResult" class="text-xs text-slate-300 leading-relaxed"></div>
         </div>
 
         <div>
-          <p class="text-[10px] font-bold uppercase tracking-wider text-emerald-600 mb-1">Target Solutions</p>
-          <div id="solutionResult" class="p-2.5 bg-emerald-50 border-l-4 border-emerald-500 text-xs text-emerald-900 rounded-r"></div>
+          <p class="text-[10px] font-bold uppercase tracking-wider text-rose-400 mb-1">Lean Waste & Bottlenecks</p>
+          <div id="wasteResult" class="p-3 bg-rose-950/40 border-l-4 border-rose-500 text-xs text-rose-200 rounded-r"></div>
+        </div>
+
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 mb-1">Target Solutions</p>
+          <div id="solutionResult" class="p-3 bg-emerald-950/40 border-l-4 border-emerald-500 text-xs text-emerald-200 rounded-r"></div>
         </div>
       </div>
     </div>
 
     <!-- ANALYTICS CARD -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-      <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-        <i class="fa-solid fa-chart-pie text-blue-600"></i> Resource Utilization Analytics
+    <div class="bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-6 backdrop-blur-md">
+      <h2 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-chart-pie text-blue-500"></i> Resource Utilization Analytics
       </h2>
 
-      <div class="flex bg-slate-100 p-1 rounded-xl mb-4">
-        <button onclick="fetchReport('day', this)" class="rep-btn flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-600 transition hover:bg-white hover:shadow-sm active-tab">Daily</button>
-        <button onclick="fetchReport('week', this)" class="rep-btn flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-600 transition hover:bg-white hover:shadow-sm">Weekly</button>
-        <button onclick="fetchReport('month', this)" class="rep-btn flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-600 transition hover:bg-white hover:shadow-sm">Monthly</button>
+      <div class="flex bg-slate-950 p-1 rounded-xl mb-4 border border-slate-800">
+        <button onclick="fetchReport('day', this)" class="rep-btn flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 transition hover:text-slate-200 active-tab">Daily</button>
+        <button onclick="fetchReport('week', this)" class="rep-btn flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 transition hover:text-slate-200">Weekly</button>
+        <button onclick="fetchReport('month', this)" class="rep-btn flex-1 py-1.5 text-xs font-semibold rounded-lg text-slate-400 transition hover:text-slate-200">Monthly</button>
       </div>
 
       <div id="analyticsContent" class="space-y-4">
         <div class="grid grid-cols-3 gap-2 text-center">
-          <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-            <span class="text-[10px] font-bold text-slate-400 uppercase">Total Runs</span>
-            <div id="repTotal" class="text-base font-bold text-slate-800">0</div>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Total Runs</span>
+            <div id="repTotal" class="text-base font-bold text-slate-100">0</div>
           </div>
-          <div class="bg-rose-50 p-3 rounded-xl border border-rose-100">
-            <span class="text-[10px] font-bold text-rose-500 uppercase">Peak Shift</span>
-            <div id="repPeak" class="text-[11px] font-bold text-rose-700 leading-tight mt-1">-</div>
+          <div class="bg-rose-950/30 p-3 rounded-xl border border-rose-900/50">
+            <span class="text-[10px] font-bold text-rose-400 uppercase tracking-wider">Peak Shift</span>
+            <div id="repPeak" class="text-[11px] font-bold text-rose-300 leading-tight mt-1">-</div>
           </div>
-          <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-100">
-            <span class="text-[10px] font-bold text-emerald-500 uppercase">Low Shift</span>
-            <div id="repLow" class="text-[11px] font-bold text-emerald-700 leading-tight mt-1">-</div>
+          <div class="bg-emerald-950/30 p-3 rounded-xl border border-emerald-900/50">
+            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Low Shift</span>
+            <div id="repLow" class="text-[11px] font-bold text-emerald-300 leading-tight mt-1">-</div>
           </div>
         </div>
 
-        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
           <canvas id="shiftChart" class="max-h-48"></canvas>
         </div>
 
-        <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
           <canvas id="pieChart" class="max-h-48"></canvas>
         </div>
 
-        <!-- PROFESSIONAL DIAGNOSTIC & SOLUTION HINT -->
-        <div id="solutionHintCard" class="hidden p-3.5 bg-blue-50/70 border border-blue-200 rounded-xl space-y-1.5">
-          <span class="text-[10px] font-bold uppercase tracking-wider text-blue-700 flex items-center gap-1">
+        <!-- DIAGNOSTIC & SOLUTION CARD -->
+        <div id="solutionHintCard" class="hidden p-4 bg-blue-950/40 border border-blue-800/80 rounded-xl space-y-2">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-blue-400 flex items-center gap-1.5">
             <i class="fa-solid fa-lightbulb"></i> Operational Diagnostic & Recommendation
           </span>
-          <p id="problemText" class="text-xs text-slate-700 font-medium"></p>
-          <p id="solutionText" class="text-xs text-slate-800 leading-relaxed"></p>
+          <p id="problemText" class="text-xs text-slate-300 font-medium leading-relaxed"></p>
+          <p id="solutionText" class="text-xs text-blue-200 leading-relaxed"></p>
         </div>
       </div>
     </div>
@@ -198,6 +210,10 @@
 
     let shiftChartObj = null;
     let pieChartObj = null;
+
+    // Dark Mode Chart defaults
+    Chart.defaults.color = '#94a3b8';
+    Chart.defaults.borderColor = '#1e293b';
 
     async function handleFormSubmit(event) {
       event.preventDefault();
@@ -248,8 +264,8 @@
 
     async function fetchReport(timeframe, btnElem) {
       if (btnElem) {
-        document.querySelectorAll('.rep-btn').forEach(b => b.classList.remove('bg-white', 'shadow-sm', 'text-slate-900'));
-        btnElem.classList.add('bg-white', 'shadow-sm', 'text-slate-900');
+        document.querySelectorAll('.rep-btn').forEach(b => b.classList.remove('bg-slate-800', 'text-white', 'shadow-sm'));
+        btnElem.classList.add('bg-slate-800', 'text-white', 'shadow-sm');
       }
 
       try {
@@ -268,14 +284,13 @@
       document.getElementById('repPeak').innerText = data.peakShift;
       document.getElementById('repLow').innerText = data.lowShift;
 
-      // Render Diagnostic & Solution Card
       if (data.problemStmt) {
-        document.getElementById('problemText').innerHTML = `<b>Identified Operational Issue:</b> ${data.problemStmt}`;
+        document.getElementById('problemText').innerHTML = `<b class="text-white">Identified Operational Issue:</b> ${data.problemStmt}`;
         document.getElementById('solutionText').innerHTML = data.professionalSolution;
         document.getElementById('solutionHintCard').classList.remove('hidden');
       }
 
-      // 1. Shift Comparison Bar Chart
+      // Bar Chart
       const ctxBar = document.getElementById('shiftChart').getContext('2d');
       if (shiftChartObj) shiftChartObj.destroy();
       shiftChartObj = new Chart(ctxBar, {
@@ -283,14 +298,20 @@
         data: {
           labels: ['Shift 1', 'Shift 2', 'Shift 3'],
           datasets: [
-            { label: 'Outside Forks', data: Object.values(data.shiftUsageOutside), backgroundColor: '#2563eb', borderRadius: 4 },
-            { label: 'Inside Line Forks', data: Object.values(data.shiftUsageInside), backgroundColor: '#10b981', borderRadius: 4 }
+            { label: 'Outside Forks', data: Object.values(data.shiftUsageOutside), backgroundColor: '#3b82f6', borderRadius: 6 },
+            { label: 'Inside Line Forks', data: Object.values(data.shiftUsageInside), backgroundColor: '#10b981', borderRadius: 6 }
           ]
         },
-        options: { responsive: true, plugins: { title: { display: true, text: 'Average Resource Load per Shift' } } }
+        options: { 
+          responsive: true, 
+          plugins: { 
+            legend: { labels: { color: '#cbd5e1', font: { size: 11 } } },
+            title: { display: true, text: 'Average Resource Load per Shift', color: '#f8fafc' } 
+          } 
+        }
       });
 
-      // 2. Fixed Resource Task Distribution Pie Chart
+      // Pie Chart
       const ctxPie = document.getElementById('pieChart').getContext('2d');
       if (pieChartObj) pieChartObj.destroy();
       pieChartObj = new Chart(ctxPie, {
@@ -302,7 +323,13 @@
             backgroundColor: ['#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899', '#10b981', '#f43f5e'] 
           }]
         },
-        options: { responsive: true, plugins: { title: { display: true, text: 'Accurate Task Distribution' } } }
+        options: { 
+          responsive: true, 
+          plugins: { 
+            legend: { labels: { color: '#cbd5e1', font: { size: 11 } } },
+            title: { display: true, text: 'Accurate Task Distribution', color: '#f8fafc' } 
+          } 
+        }
       });
     }
   </script>
